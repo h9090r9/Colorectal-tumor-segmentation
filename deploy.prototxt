@@ -1,0 +1,1931 @@
+name: "try-net"
+input: "data"
+input_shape { dim: 1 dim: 1 dim: 32 dim: 32 dim: 32}
+#########################################
+## Horizontal layer 1
+layer {
+  name: "Convolution1a"
+  type: "Convolution"
+  bottom: "data"
+  top: "Convolution1a"
+  convolution_param {
+    engine: CAFFE
+    num_output: 16
+    bias_term: false
+    pad: 1
+    kernel_size: 3
+    stride: 2
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+
+layer {
+  name: "BatchNorm1a"
+  type: "BatchNorm"
+  bottom: "Convolution1a"
+  top: "BatchNorm1a"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+layer {
+  name: "Scale1a"
+  type: "Scale"
+  bottom: "BatchNorm1a"
+  top: "BatchNorm1a"
+  scale_param {
+    filler {
+      value: 1
+    }
+    bias_term: true
+    bias_filler {
+      value: 0
+    }
+  }
+}
+layer {
+  name: "ReLU1a"
+  type: "ReLU"
+  bottom: "BatchNorm1a"
+  top: "BatchNorm1a"
+  relu_param {
+    engine: CAFFE
+  }
+}
+
+
+#horizontal layer 2
+
+layer {
+  name: "Convolution2a"
+  type: "Convolution"
+  bottom: "BatchNorm1a"
+  top: "Convolution2a"
+  convolution_param {
+    engine: CAFFE
+    num_output: 12
+    bias_term: false
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "Dropout1a"
+  type: "Dropout"
+  bottom: "Convolution2a"
+  top: "Dropout1a"
+  dropout_param {
+    dropout_ratio: 0.2
+  }
+}
+layer {
+  name: "Concat1a"
+  type: "Concat"
+  bottom: "Convolution1a"
+  bottom: "Dropout1a"
+  top: "Concat1a"
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "BatchNorm2a"
+  type: "BatchNorm"
+  bottom: "Concat1a"
+  top: "BatchNorm2a"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+layer {
+  name: "Scale2a"
+  type: "Scale"
+  bottom: "BatchNorm2a"
+  top: "BatchNorm2a"
+  scale_param {
+    filler {
+      value: 1
+    }
+    bias_term: true
+    bias_filler {
+      value: 0
+    }
+  }
+}
+layer {
+  name: "ReLU2a"
+  type: "ReLU"
+  bottom: "BatchNorm2a"
+  top: "BatchNorm2a"
+  relu_param {
+    engine: CAFFE
+  }
+}
+
+#Horizontal layer 3
+
+layer {
+  name: "Convolution3a"
+  type: "Convolution"
+  bottom: "BatchNorm2a"
+  top: "Convolution3a"
+  convolution_param {
+    engine: CAFFE
+    num_output: 12
+    bias_term: false
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "Dropout2a"
+  type: "Dropout"
+  bottom: "Convolution3a"
+  top: "Dropout2a"
+  dropout_param {
+    dropout_ratio: 0.2
+  }
+}
+layer {
+  name: "Concat2a"
+  type: "Concat"
+  bottom: "Concat1a"
+  bottom: "Dropout2a"
+  top: "Concat2a"
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "BatchNorm3a"
+  type: "BatchNorm"
+  bottom: "Concat2a"
+  top: "BatchNorm3a"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+layer {
+  name: "Scale3a"
+  type: "Scale"
+  bottom: "BatchNorm3a"
+  top: "BatchNorm3a"
+  scale_param {
+    filler {
+      value: 1
+    }
+    bias_term: true
+    bias_filler {
+      value: 0
+    }
+  }
+}
+layer {
+  name: "ReLU3a"
+  type: "ReLU"
+  bottom: "BatchNorm3a"
+  top: "BatchNorm3a"
+  relu_param {
+    engine: CAFFE
+  }
+}
+
+#Horizontal layer 4
+
+layer {
+  name: "Convolution4a"
+  type: "Convolution"
+  bottom: "BatchNorm3a"
+  top: "Convolution4a"
+  convolution_param {
+   engine: CAFFE
+    num_output: 12
+    bias_term: false
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "Dropout3a"
+  type: "Dropout"
+  bottom: "Convolution4a"
+  top: "Dropout3a"
+  dropout_param {
+    dropout_ratio: 0.2
+  }
+}
+layer {
+  name: "Concat3a"
+  type: "Concat"
+  bottom: "Concat2a"
+  bottom: "Dropout3a"
+  top: "Concat3a"
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "BatchNorm4a"
+  type: "BatchNorm"
+  bottom: "Concat3a"
+  top: "BatchNorm4a"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+layer {
+  name: "Scale4a"
+  type: "Scale"
+  bottom: "BatchNorm4a"
+  top: "BatchNorm4a"
+  scale_param {
+    filler {
+      value: 1
+    }
+    bias_term: true
+    bias_filler {
+      value: 0
+    }
+  }
+}
+layer {
+  name: "ReLU4a"
+  type: "ReLU"
+  bottom: "BatchNorm4a"
+  top: "BatchNorm4a"
+  relu_param {
+    engine: CAFFE
+  }
+}
+#Horizontal layer 5
+
+layer {
+  name: "Convolution5a"
+  type: "Convolution"
+  bottom: "BatchNorm4a"
+  top: "Convolution5a"
+  convolution_param {
+    engine: CAFFE
+    num_output: 12
+    bias_term: false
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "Dropout4a"
+  type: "Dropout"
+  bottom: "Convolution5a"
+  top: "Dropout4a"
+  dropout_param {
+    dropout_ratio: 0.2
+  }
+}
+layer {
+  name: "Concat4a"
+  type: "Concat"
+  bottom: "Concat3a"
+  bottom: "Dropout4a"
+  top: "Concat4a"
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "BatchNorm5a"
+  type: "BatchNorm"
+  bottom: "Concat4a"
+  top: "BatchNorm5a"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+layer {
+  name: "Scale5a"
+  type: "Scale"
+  bottom: "BatchNorm5a"
+  top: "BatchNorm5a"
+  scale_param {
+    filler {
+      value: 1
+    }
+    bias_term: true
+    bias_filler {
+      value: 0
+    }
+  }
+}
+layer {
+  name: "ReLU5a"
+  type: "ReLU"
+  bottom: "BatchNorm5a"
+  top: "BatchNorm5a"
+  relu_param {
+    engine: CAFFE
+  }
+}
+#Horizontal layer 6
+
+layer {
+  name: "Convolution6a"
+  type: "Convolution"
+  bottom: "BatchNorm5a"
+  top: "Convolution6a"
+  convolution_param {
+    engine: CAFFE
+    num_output: 12
+    bias_term: false
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "Dropout5a"
+  type: "Dropout"
+  bottom: "Convolution6a"
+  top: "Dropout5a"
+  dropout_param {
+    dropout_ratio: 0.2
+  }
+}
+layer {
+  name: "Concat5a"
+  type: "Concat"
+  bottom: "Concat4a"
+  bottom: "Dropout5a"
+  top: "Concat5a"
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "BatchNorm6a"
+  type: "BatchNorm"
+  bottom: "Concat5a"
+  top: "BatchNorm6a"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+layer {
+  name: "Scale6a"
+  type: "Scale"
+  bottom: "BatchNorm6a"
+  top: "BatchNorm6a"
+  scale_param {
+    filler {
+      value: 1
+    }
+    bias_term: true
+    bias_filler {
+      value: 0
+    }
+  }
+}
+layer {
+  name: "ReLU6a"
+  type: "ReLU"
+  bottom: "BatchNorm6a"
+  top: "BatchNorm6a"
+  relu_param {
+   engine: CAFFE
+  }
+}
+
+#Horizontal layer 7
+
+layer {
+  name: "Convolution7a"
+  type: "Convolution"
+  bottom: "BatchNorm6a"
+  top: "Convolution7a"
+  convolution_param {
+    engine: CAFFE
+    num_output: 12
+    bias_term: false
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "Dropout6a"
+  type: "Dropout"
+  bottom: "Convolution7a"
+  top: "Dropout6a"
+  dropout_param {
+    dropout_ratio: 0.2
+  }
+}
+layer {
+  name: "Concat6a"
+  type: "Concat"
+  bottom: "Concat5a"
+  bottom: "Dropout6a"
+  top: "Concat6a"
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "BatchNorm7a"
+  type: "BatchNorm"
+  bottom: "Concat6a"
+  top: "BatchNorm7a"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+layer {
+  name: "Scale7a"
+  type: "Scale"
+  bottom: "BatchNorm7a"
+  top: "BatchNorm7a"
+  scale_param {
+    filler {
+      value: 1
+    }
+    bias_term: true
+    bias_filler {
+      value: 0
+    }
+  }
+}
+layer {
+  name: "ReLU7a"
+  type: "ReLU"
+  bottom: "BatchNorm7a"
+  top: "BatchNorm7a"
+  relu_param {
+    engine: CAFFE
+  }
+}
+
+#Horizontal layer 8
+
+layer {
+  name: "Convolution8a"
+  type: "Convolution"
+  bottom: "BatchNorm7a"
+  top: "Convolution8a"
+  convolution_param {
+    engine: CAFFE
+    num_output: 12
+    bias_term: false
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "Dropout7a"
+  type: "Dropout"
+  bottom: "Convolution8a"
+  top: "Dropout7a"
+  dropout_param {
+    dropout_ratio: 0.2
+  }
+}
+layer {
+  name: "Concat7a"
+  type: "Concat"
+  bottom: "Concat6a"
+  bottom: "Dropout7a"
+  top: "Concat7a"
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "BatchNorm8a"
+  type: "BatchNorm"
+  bottom: "Concat7a"
+  top: "BatchNorm8a"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+layer {
+  name: "Scale8a"
+  type: "Scale"
+  bottom: "BatchNorm8a"
+  top: "BatchNorm8a"
+  scale_param {
+    filler {
+      value: 1
+    }
+    bias_term: true
+    bias_filler {
+      value: 0
+    }
+  }
+}
+layer {
+  name: "ReLU8a"
+  type: "ReLU"
+  bottom: "BatchNorm8a"
+  top: "BatchNorm8a"
+  relu_param {
+   engine: CAFFE
+  }
+}
+#Horizontal layer 9
+
+layer {
+  name: "Convolution9a"
+  type: "Convolution"
+  bottom: "BatchNorm8a"
+  top: "Convolution9a"
+  convolution_param {
+    engine: CAFFE
+    num_output: 12
+    bias_term: false
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "Dropout8a"
+  type: "Dropout"
+  bottom: "Convolution9a"
+  top: "Dropout8a"
+  dropout_param {
+    dropout_ratio: 0.2
+  }
+}
+layer {
+  name: "Concat8a"
+  type: "Concat"
+  bottom: "Concat7a"
+  bottom: "Dropout8a"
+  top: "Concat8a"
+  concat_param {
+    axis: 1
+  }
+}
+#layer {
+ # name: "BatchNorm9a"
+ # type: "BatchNorm"
+ #bottom: "Concat8a"
+ # top: "BatchNorm9a"
+ # param {
+  #  lr_mult: 0
+  #  decay_mult: 0
+ # }
+#  param {
+  #  lr_mult: 0
+ #   decay_mult: 0
+ # }
+ # param {
+  #  lr_mult: 0
+ #   decay_mult: 0
+ # }
+#}
+#layer {
+  #name: "Scale9a"
+  #type: "Scale"
+ # bottom: "BatchNorm9a"
+  #top: "BatchNorm9a"
+  #scale_param {
+   # filler {
+   #   value: 1
+   # }
+    #bias_term: true
+    #bias_filler {
+     # value: 0
+    #}
+  #}
+#}
+#layer {
+  #name: "ReLU9a"
+  #type: "ReLU"
+  #bottom: "BatchNorm9a"
+ # top: "BatchNorm9a"
+  #relu_param {
+  #  engine: CAFFE
+ # }
+#}
+##Horizontal layer 10
+#layer {
+ # name: "Convolution10a"
+  #type: "Convolution"
+ #bottom: "BatchNorm9a"
+  #top: "Convolution10a"
+ #convolution_param {
+   # engine: CAFFE
+   # num_output: 112
+  #  bias_term: false
+   # pad: 0
+   # kernel_size: 1
+    #stride: 1
+   # weight_filler {
+    #  type: "gaussian"
+    #  std: 0.01
+   # }
+    #bias_filler {
+   #   type: "constant"
+ #   }
+ # }
+#}
+
+# scaled layers
+# Scaled layer 1
+layer {
+  name: "Pooling1"
+  type: "Pooling"
+  bottom: "Convolution1a"
+  top: "Pooling1"
+  pooling_param {
+    engine: CAFFE
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "BatchNorm1b"
+  type: "BatchNorm"
+  bottom: "Pooling1"
+  top: "BatchNorm1b"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+layer {
+  name: "Scale1b"
+  type: "Scale"
+  bottom: "BatchNorm1b"
+  top: "BatchNorm1b"
+  scale_param {
+    filler {
+      value: 1
+    }
+    bias_term: true
+    bias_filler {
+      value: 0
+    }
+  }
+}
+layer {
+  name: "ReLU1b"
+  type: "ReLU"
+  bottom: "BatchNorm1b"
+  top: "BatchNorm1b"
+  relu_param {
+    engine: CAFFE
+  }
+}
+
+#scaled layer 2
+layer {
+  name: "Convolution2b"
+  type: "Convolution"
+  bottom: "BatchNorm1b"
+  top: "Convolution2b"
+  convolution_param {
+    engine: CAFFE
+    num_output: 12
+    bias_term: false
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "Dropout1b"
+  type: "Dropout"
+  bottom: "Convolution2b"
+  top: "Dropout1b"
+  dropout_param {
+    dropout_ratio: 0.2
+  }
+}
+layer {
+  name: "Concat1b"
+  type: "Concat"
+  bottom: "Pooling1"
+  bottom: "Dropout1b"
+  top: "Concat1b"
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "BatchNorm2b"
+  type: "BatchNorm"
+  bottom: "Concat1b"
+  top: "BatchNorm2b"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+layer {
+  name: "Scale2b"
+  type: "Scale"
+  bottom: "BatchNorm2b"
+  top: "BatchNorm2b"
+  scale_param {
+    filler {
+      value: 1
+    }
+    bias_term: true
+    bias_filler {
+      value: 0
+    }
+  }
+}
+layer {
+  name: "ReLU2b"
+  type: "ReLU"
+  bottom: "BatchNorm2b"
+  top: "BatchNorm2b"
+  relu_param {
+   engine: CAFFE
+  }
+}
+layer {
+  name: "Concat2b"
+  type: "Concat"
+  bottom: "Pooling1"
+  bottom: "BatchNorm2b"
+  top: "Concat2b"
+  concat_param {
+    axis: 1
+  }
+}
+#scaled layer 3
+layer {
+  name: "Convolution3b"
+  type: "Convolution"
+  bottom: "Concat2b"
+  top: "Convolution3b"
+  convolution_param {
+    engine: CAFFE
+    num_output: 12
+    bias_term: false
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "Dropout2b"
+  type: "Dropout"
+  bottom: "Convolution3b"
+  top: "Dropout2b"
+  dropout_param {
+    dropout_ratio: 0.2
+  }
+}
+layer {
+  name: "Pooling2"
+  type: "Pooling"
+  bottom: "Concat1a"
+  top: "Pooling2"
+  pooling_param {
+engine: CAFFE
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "Concat3b"
+  type: "Concat"
+  bottom: "Pooling2"
+  bottom: "Dropout2b"
+  top: "Concat3b"
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "BatchNorm3b"
+  type: "BatchNorm"
+  bottom: "Concat3b"
+  top: "BatchNorm3b"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+layer {
+  name: "Scale3b"
+  type: "Scale"
+  bottom: "BatchNorm3b"
+  top: "BatchNorm3b"
+  scale_param {
+    filler {
+      value: 1
+    }
+    bias_term: true
+    bias_filler {
+      value: 0
+    }
+  }
+}
+layer {
+  name: "ReLU3b"
+  type: "ReLU"
+  bottom: "BatchNorm3b"
+  top: "BatchNorm3b"
+  relu_param {
+    engine: CAFFE
+  }
+}
+layer {
+  name: "Concat4b"
+  type: "Concat"
+  bottom: "Concat2b"
+  bottom: "BatchNorm3b"
+  top: "Concat4b"
+  concat_param {
+    axis: 1
+  }
+}
+
+#scaled layer 4
+layer {
+  name: "Convolution4b"
+  type: "Convolution"
+  bottom: "Concat4b"
+  top: "Convolution4b"
+  convolution_param {
+    engine: CAFFE
+    num_output: 12
+    bias_term: false
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "Dropout3b"
+  type: "Dropout"
+  bottom: "Convolution4b"
+  top: "Dropout3b"
+  dropout_param {
+    dropout_ratio: 0.2
+  }
+}
+layer {
+  name: "Pooling3"
+  type: "Pooling"
+  bottom: "Concat2a"
+  top: "Pooling3"
+  pooling_param {
+    engine: CAFFE
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "Concat5b"
+  type: "Concat"
+  bottom: "Pooling3"
+  bottom: "Dropout3b"
+  top: "Concat5b"
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "BatchNorm4b"
+  type: "BatchNorm"
+  bottom: "Concat5b"
+  top: "BatchNorm4b"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+layer {
+  name: "Scale4b"
+  type: "Scale"
+  bottom: "BatchNorm4b"
+  top: "BatchNorm4b"
+  scale_param {
+    filler {
+      value: 1
+    }
+    bias_term: true
+    bias_filler {
+      value: 0
+    }
+  }
+}
+layer {
+  name: "ReLU4b"
+  type: "ReLU"
+  bottom: "BatchNorm4b"
+  top: "BatchNorm4b"
+  relu_param {
+    engine: CAFFE
+  }
+}
+layer {
+  name: "Concat6b"
+  type: "Concat"
+  bottom: "Concat4b"
+  bottom: "BatchNorm4b"
+  top: "Concat6b"
+  concat_param {
+    axis: 1
+  }
+}
+#scaled layer 5
+layer {
+  name: "Convolution5b"
+  type: "Convolution"
+  bottom: "Concat6b"
+  top: "Convolution5b"
+  convolution_param {
+    engine: CAFFE
+    num_output: 12
+    bias_term: false
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "Dropout4b"
+  type: "Dropout"
+  bottom: "Convolution5b"
+  top: "Dropout4b"
+  dropout_param {
+    dropout_ratio: 0.2
+  }
+}
+layer {
+  name: "Pooling4"
+  type: "Pooling"
+  bottom: "Concat3a"
+  top: "Pooling4"
+  pooling_param {
+    engine: CAFFE
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "Concat7b"
+  type: "Concat"
+  bottom: "Pooling4"
+  bottom: "Dropout4b"
+  top: "Concat7b"
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "BatchNorm5b"
+  type: "BatchNorm"
+  bottom: "Concat7b"
+  top: "BatchNorm5b"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+layer {
+  name: "Scale5b"
+  type: "Scale"
+  bottom: "BatchNorm5b"
+  top: "BatchNorm5b"
+  scale_param {
+    filler {
+      value: 1
+    }
+    bias_term: true
+    bias_filler {
+      value: 0
+    }
+  }
+}
+layer {
+  name: "ReLU5b"
+  type: "ReLU"
+  bottom: "BatchNorm5b"
+  top: "BatchNorm5b"
+  relu_param {
+    engine: CAFFE
+  }
+}
+layer {
+  name: "Concat8b"
+  type: "Concat"
+  bottom: "Concat6b"
+  bottom: "BatchNorm5b"
+  top: "Concat8b"
+  concat_param {
+    axis: 1
+  }
+}
+
+#scaled layer 6
+layer {
+  name: "Convolution6b"
+  type: "Convolution"
+  bottom: "Concat8b"
+  top: "Convolution6b"
+  convolution_param {
+   engine: CAFFE
+    num_output: 12
+    bias_term: false
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "Dropout5b"
+  type: "Dropout"
+  bottom: "Convolution6b"
+  top: "Dropout5b"
+  dropout_param {
+    dropout_ratio: 0.2
+  }
+}
+layer {
+  name: "Pooling5"
+  type: "Pooling"
+  bottom: "Concat4a"
+  top: "Pooling5"
+  pooling_param {
+    engine: CAFFE
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "Concat9b"
+  type: "Concat"
+  bottom: "Pooling5"
+  bottom: "Dropout5b"
+  top: "Concat9b"
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "BatchNorm6b"
+  type: "BatchNorm"
+  bottom: "Concat9b"
+  top: "BatchNorm6b"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+layer {
+  name: "Scale6b"
+  type: "Scale"
+  bottom: "BatchNorm6b"
+  top: "BatchNorm6b"
+  scale_param {
+    filler {
+      value: 1
+    }
+    bias_term: true
+    bias_filler {
+      value: 0
+    }
+  }
+}
+layer {
+  name: "ReLU6b"
+  type: "ReLU"
+  bottom: "BatchNorm6b"
+  top: "BatchNorm6b"
+  relu_param {
+    engine: CAFFE
+  }
+}
+layer {
+  name: "Concat10b"
+  type: "Concat"
+  bottom: "Concat8b"
+  bottom: "BatchNorm6b"
+  top: "Concat10b"
+  concat_param {
+    axis: 1
+  }
+}
+
+#scaled layer 7
+
+layer {
+  name: "Convolution7b"
+  type: "Convolution"
+  bottom: "Concat10b"
+  top: "Convolution7b"
+  convolution_param {
+    engine: CAFFE
+    num_output: 12
+    bias_term: false
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "Dropout6b"
+  type: "Dropout"
+  bottom: "Convolution7b"
+  top: "Dropout6b"
+  dropout_param {
+    dropout_ratio: 0.2
+  }
+}
+layer {
+  name: "Pooling6"
+  type: "Pooling"
+  bottom: "Concat5a"
+  top: "Pooling6"
+  pooling_param {
+    engine: CAFFE
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "Concat11b"
+  type: "Concat"
+  bottom: "Pooling6"
+  bottom: "Dropout6b"
+  top: "Concat11b"
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "BatchNorm7b"
+  type: "BatchNorm"
+  bottom: "Concat11b"
+  top: "BatchNorm7b"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+layer {
+  name: "Scale7b"
+  type: "Scale"
+  bottom: "BatchNorm7b"
+  top: "BatchNorm7b"
+  scale_param {
+    filler {
+      value: 1
+    }
+    bias_term: true
+    bias_filler {
+      value: 0
+    }
+  }
+}
+layer {
+  name: "ReLU7b"
+  type: "ReLU"
+  bottom: "BatchNorm7b"
+  top: "BatchNorm7b"
+  relu_param {
+    engine: CAFFE
+  }
+}
+layer {
+  name: "Concat12b"
+  type: "Concat"
+  bottom: "Concat10b"
+  bottom: "BatchNorm7b"
+  top: "Concat12b"
+  concat_param {
+    axis: 1
+  }
+}
+
+#scaled layer 8
+
+layer {
+  name: "Convolution8b"
+  type: "Convolution"
+  bottom: "Concat12b"
+  top: "Convolution8b"
+  convolution_param {
+    engine: CAFFE
+    num_output: 12
+    bias_term: false
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "Dropout7b"
+  type: "Dropout"
+  bottom: "Convolution8b"
+  top: "Dropout7b"
+  dropout_param {
+    dropout_ratio: 0.2
+  }
+}
+layer {
+  name: "Pooling7"
+  type: "Pooling"
+  bottom: "Concat6a"
+  top: "Pooling7"
+  pooling_param {
+    engine: CAFFE
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "Concat13b"
+  type: "Concat"
+  bottom: "Pooling7"
+  bottom: "Dropout7b"
+  top: "Concat13b"
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "BatchNorm8b"
+  type: "BatchNorm"
+  bottom: "Concat13b"
+  top: "BatchNorm8b"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+layer {
+  name: "Scale8b"
+  type: "Scale"
+  bottom: "BatchNorm8b"
+  top: "BatchNorm8b"
+  scale_param {
+    filler {
+      value: 1
+    }
+    bias_term: true
+    bias_filler {
+      value: 0
+    }
+  }
+}
+layer {
+  name: "ReLU8b"
+  type: "ReLU"
+  bottom: "BatchNorm8b"
+  top: "BatchNorm8b"
+  relu_param {
+    engine: CAFFE
+  }
+}
+layer {
+  name: "Concat14b"
+  type: "Concat"
+  bottom: "Concat12b"
+  bottom: "BatchNorm8b"
+  top: "Concat14b"
+  concat_param {
+    axis: 1
+  }
+}
+
+#scaled layer 9
+
+layer {
+  name: "Convolution9b"
+  type: "Convolution"
+  bottom: "Concat14b"
+  top: "Convolution9b"
+  convolution_param {
+    engine: CAFFE
+    num_output: 12
+    bias_term: false
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "Dropout8b"
+  type: "Dropout"
+  bottom: "Convolution9b"
+  top: "Dropout8b"
+  dropout_param {
+    dropout_ratio: 0.2
+  }
+}
+layer {
+  name: "Pooling8"
+  type: "Pooling"
+  bottom: "Concat7a"
+  top: "Pooling8"
+  pooling_param {
+    engine: CAFFE
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "Concat15b"
+  type: "Concat"
+  bottom: "Pooling8"
+  bottom: "Dropout8b"
+  top: "Concat15b"
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "BatchNorm9b"
+  type: "BatchNorm"
+  bottom: "Concat15b"
+  top: "BatchNorm9b"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+layer {
+  name: "Scale9b"
+  type: "Scale"
+  bottom: "BatchNorm9b"
+  top: "BatchNorm9b"
+  scale_param {
+    filler {
+      value: 1
+    }
+    bias_term: true
+    bias_filler {
+      value: 0
+    }
+  }
+}
+layer {
+  name: "ReLU9b"
+  type: "ReLU"
+  bottom: "BatchNorm9b"
+  top: "BatchNorm9b"
+  relu_param {
+    engine: CAFFE
+  }
+}
+layer {
+  name: "Concat16b"
+  type: "Concat"
+  bottom: "Concat14b"
+  bottom: "BatchNorm9b"
+  top: "Concat16b"
+  concat_param {
+    axis: 1
+  }
+}
+
+#scaled layer 10
+
+layer {
+  name: "Convolution10b"
+  type: "Convolution"
+  bottom: "Concat16b"
+  top: "Convolution10b"
+  convolution_param {
+    engine: CAFFE
+    num_output: 12
+    bias_term: false
+    pad: 1
+    kernel_size: 3
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+layer {
+  name: "Dropout9b"
+  type: "Dropout"
+  bottom: "Convolution10b"
+  top: "Dropout9b"
+  dropout_param {
+    dropout_ratio: 0.2
+  }
+}
+layer {
+  name: "Pooling9"
+  type: "Pooling"
+  bottom: "Concat8a"
+  top: "Pooling9"
+  pooling_param {
+    engine: CAFFE
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "Concat17b"
+  type: "Concat"
+  bottom: "Pooling9"
+  bottom: "Dropout9b"
+  top: "Concat17b"
+  concat_param {
+    axis: 1
+  }
+}
+layer {
+  name: "BatchNorm10b"
+  type: "BatchNorm"
+  bottom: "Concat17b"
+  top: "BatchNorm10b"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+}
+layer {
+  name: "Scale10b"
+  type: "Scale"
+  bottom: "BatchNorm10b"
+  top: "BatchNorm10b"
+  scale_param {
+    filler {
+      value: 1
+    }
+    bias_term: true
+    bias_filler {
+      value: 0
+    }
+  }
+}
+layer {
+  name: "ReLU10b"
+  type: "ReLU"
+  bottom: "BatchNorm10b"
+  top: "BatchNorm10b"
+  relu_param {
+    engine: CAFFE
+  }
+}
+layer {
+  name: "Concat18b"
+  type: "Concat"
+  bottom: "Concat16b"
+  bottom: "BatchNorm10b"
+  top: "Concat18b"
+  concat_param {
+    axis: 1
+  }
+}
+
+##scaled layer 11
+layer {
+  name: "Convolution11b"
+  type: "Convolution"
+  bottom: "Concat18b"
+  top: "Convolution11b"
+  convolution_param {
+    engine: CAFFE
+    num_output: 700
+    bias_term: false
+    pad: 0
+    kernel_size: 1
+    stride: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+    }
+  }
+}
+############################
+layer {
+  name: "Deconv1"
+  type: "Deconvolution"
+  bottom: "Convolution11b"
+  top: "Deconv1"
+  convolution_param {
+    kernel_size: 4
+    stride: 2
+    num_output: 64
+    pad: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      std: 0
+    }
+    engine: CAFFE
+  }
+}
+layer {
+  name: "relu_d1"
+  type: "ReLU"
+  bottom: "Deconv1"
+  top: "Deconv1"
+  relu_param {
+   engine: CAFFE
+  }
+}
+
+layer {
+  name: "Deconv2"
+  type: "Deconvolution"
+  bottom: "Deconv1"
+  top: "Deconv2"
+  convolution_param {
+    kernel_size: 4
+    stride: 2
+    num_output: 32
+    pad: 1
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      std: 0
+    }
+    engine:CAFFE
+  }
+}
+
+layer {
+  name: "relu_d2"
+  type: "ReLU"
+  bottom: "Deconv2"
+  top: "Deconv2"
+  relu_param {
+    engine:CAFFE
+  }
+}
+
+layer {
+  name: "score_main1"
+  type: "Convolution"
+  bottom: "Deconv2"
+  top: "score_main1"
+  param {
+    lr_mult: 1
+    decay_mult: 1
+  }
+  param {
+    lr_mult: 2
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 3
+    kernel_size: 1
+    engine: CAFFE
+    weight_filler {
+      type: "gaussian"
+      std: 0.01
+    }
+    bias_filler {
+      type: "constant"
+      std: 0
+    }
+  }
+}
+
+#layer {
+ # name: "Concat19"
+#  type: "Concat"
+ # bottom: "Convolution10a"
+ # bottom: "score_main1"
+ # top: "Concat19"
+ # concat_param {
+ #   axis: 1
+ # }
+#}
+
+#layer {
+  #name: "score_main2"
+ # type: "Convolution"
+ # bottom: "Concat19"
+ # top: "score_main2"
+ # param {
+ #   lr_mult: 1
+ #   decay_mult: 1
+ # }
+ # param {
+  #  lr_mult: 2
+  #  decay_mult: 0
+  #}
+ # convolution_param {
+  #  num_output: 3
+   # kernel_size: 1
+   # engine: CAFFE
+   # weight_filler {
+    #  type: "gaussian"
+   #   std: 0.01
+  #  }
+   # bias_filler {
+     # type: "constant"
+    #  std: 0
+    #}
+ # }
+#}
+
+layer {
+  name:"prob_1"
+  type: "Softmax"
+  bottom: "score_main1"
+  top:"prob_1"
+}
+
