@@ -1,4 +1,4 @@
-<div align=center><img width="1024" height="680" src="https://github.com/mhsoomro28/Colorectal-tumor-segmentation/blob/master/Figure%202%20(proposed%20method%20block%20diagram).jpg"/> 
+<div align=center><img width="1224" height="650" src="https://github.com/mhsoomro28/Colorectal-tumor-segmentation/blob/master/Figure%202%20(proposed%20method%20block%20diagram).jpg"/> 
 
 
 # Colorectal-tumor-segmentation
